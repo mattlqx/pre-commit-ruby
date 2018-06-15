@@ -13,6 +13,8 @@ repos:
   - id: mixed-line-ending
   - id: end-of-file-fixer
   - id: check-executables-have-shebangs
+  # Language syntax/formatting
+  - id: check-yaml
 - repo: local
   hooks:
   - id: rubocop

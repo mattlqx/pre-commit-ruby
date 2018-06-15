@@ -3,6 +3,7 @@
   description: Enforce Ruby style guide with rubocop
   entry: bin/rubocop-wrapper.sh
   language: script
+  pass_filenames: true
   types: ['ruby']
   verbose: true
 - id: rspec
@@ -10,5 +11,6 @@
   description: Run rspec in changed paths with spec directories
   entry: bin/rspec-wrapper.rb
   language: script
+  pass_filenames: true
   types: ['file']
   verbose: true
