@@ -12,5 +12,5 @@
   entry: bin/rspec-wrapper.rb
   language: script
   pass_filenames: true
-  types: ['file']
+  types: ['ruby']
   verbose: true
