@@ -1,0 +1,14 @@
+- id: rubocop
+  name: Check Ruby style with rubocop
+  description: Enforce Ruby style guide with rubocop
+  entry: bin/rubocop-wrapper.sh
+  language: script
+  types: ['ruby']
+  verbose: true
+- id: rspec
+  name: Unit test Ruby code with rspec
+  description: Run rspec in changed paths with spec directories
+  entry: bin/rspec-wrapper.rb
+  language: script
+  types: ['file']
+  verbose: true
