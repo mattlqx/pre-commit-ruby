@@ -11,7 +11,7 @@ To lint Ruby changes in your repo, use the `rubocop` hook. The root of your repo
 To unit test Ruby changes in your repo, use the `rspec` hook. Each path in your repo with a `spec` directory should have a `Gemfile` that includes your desired version of rspec (or a derivative library). It will be installed via Bundler prior to testing. Rspec will only be run against the closest directory in a changed file's path with a spec dir.
 
     - repo: https://github.com/mattlqx/pre-commit-ruby
-      rev: v1.0.0
+      rev: v1.0.1
       hooks:
       - id: rubocop
       - id: rspec
