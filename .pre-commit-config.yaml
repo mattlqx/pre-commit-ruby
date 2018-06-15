@@ -1,0 +1,30 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v1.3.0
+  hooks:
+  # Git state
+  - id: check-merge-conflict
+  - id: check-added-large-files
+  # Sensitive information
+  - id: detect-private-key
+  - id: detect-aws-credentials
+  # Generic file state
+  - id: trailing-whitespace
+  - id: mixed-line-ending
+  - id: end-of-file-fixer
+  - id: check-executables-have-shebangs
+  # Language syntax/formatting
+  - id: check-yaml
+- repo: local
+  hooks:
+  - id: rubocop
+    name: Check Ruby style with rubocop
+    description: Enforce Ruby style guide with rubocop
+    entry: bin/rubocop-wrapper.sh
+    language: script
+    types: ['ruby']
+    verbose: true
+- repo: https://github.com/mattlqx/pre-commit-sign
+  rev: v1.1.1
+  hooks:
+  - id: sign-commit
