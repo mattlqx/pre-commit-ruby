@@ -14,3 +14,16 @@
   pass_filenames: true
   types: ['ruby']
   verbose: true
+- id: foodcritic
+  name: Enforce Chef style guide with foodcritic
+  description: Enforce Chef style guide with foodcritic
+  entry: bin/foodcritic-wrapper.rb
+  language: script
+  pass_filenames: true
+  types: ['file']
+  files: >
+    (?x)^(
+        .*/(recipes|attributes|resources|providers)/*.rb|
+        .*/metadata.rb
+    )$
+  verbose: true
