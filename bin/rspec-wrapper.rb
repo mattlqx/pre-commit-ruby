@@ -27,6 +27,7 @@ test_dirs.sort!
 root = FileUtils.pwd
 test_dirs.each do |dir|
   FileUtils.cd(dir)
+  puts "=========== Running rspec in #{dir}"
   # Fail fast, we don't want to have to search for the failures
   (system('bundle install >/dev/null') && system('bundle exec rspec --format doc --force-color')) || exit(false)
   FileUtils.cd(root)
