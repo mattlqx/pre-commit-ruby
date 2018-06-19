@@ -23,7 +23,8 @@
   types: ['file']
   files: >
     (?x)^(
-        .*/(recipes|attributes|resources|providers)/*.rb|
-        .*/metadata.rb
+        .*/(recipes|attributes|resources|providers)/.*\.rb|
+        .*/metadata\.rb
     )$
+  exclude: .*/test/.*\.rb$
   verbose: true
