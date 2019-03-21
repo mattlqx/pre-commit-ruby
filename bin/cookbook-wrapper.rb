@@ -65,11 +65,12 @@ class MetadataReader
     @data.empty?
   end
 
-  def method_missing(sym, *args, &_block) # rubocop:disable Metrics/AbcSize, Style/MethodMissingSuper, Style/MissingRespondToMissing, Metrics/LineLength
+  def method_missing(sym, *args, &_block) # rubocop:disable Metrics/AbcSize, Style/MethodMissingSuper, Style/MissingRespondToMissing, Metrics/LineLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return @data[sym] if args.empty?
 
     if args.length > 1
       @data[sym] ||= []
+      @data[sym] = [@data[sym]] unless @data[sym].is_a?(Array)
       @data[sym] << args
     elsif @data.key?(sym)
       @data[sym] = [@data[sym]] unless @data[sym].is_a?(Array)
