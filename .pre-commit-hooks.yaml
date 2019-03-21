@@ -28,3 +28,11 @@
     )$
   exclude: .*/test/.*\.rb$
   verbose: true
+- id: chef-cookbook-version
+  name: Ensure Chef cookbook version bump
+  description: Ensure Chef cookbook versions are bumped when contents are changed
+  entry: bin/cookbook-wrapper.rb
+  language: script
+  pass_filenames: true
+  types: ['file']
+  verbose: true
