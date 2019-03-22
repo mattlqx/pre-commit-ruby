@@ -43,6 +43,7 @@ def file_from_git_history(branch, path)
   prefix = path.start_with?('/') ? '' : './'
   from_branch = IO.popen("git show origin/#{branch}:#{prefix}#{path}", err: :close, &:read)
   return from_branch unless from_branch == ''
+
   IO.popen("git show origin/master:#{prefix}#{path}", err: :close, &:read)
 end
 
@@ -87,7 +88,8 @@ autofix = false
 changed_cookbooks = []
 ARGV.each do |file|
   cookbook, type = metadata_walk(file)
-  next if changed_cookbooks.include?(cookbook)
+  next if changed_cookbooks.map(&:first).include?(cookbook)
+
   changed_cookbooks << [cookbook, type] if bump_required?(file)
 end
 
