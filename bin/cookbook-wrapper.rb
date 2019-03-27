@@ -39,11 +39,8 @@ def higher?(old_version, new_version)
   end == true
 end
 
-def file_from_git_history(branch, path)
+def file_from_git_history(path)
   prefix = path.start_with?('/') ? '' : './'
-  from_branch = IO.popen("git show origin/#{branch}:#{prefix}#{path}", err: :close, &:read)
-  return from_branch unless from_branch == ''
-
   IO.popen("git show origin/master:#{prefix}#{path}", err: :close, &:read)
 end
 
@@ -96,16 +93,15 @@ end
 exit(success) if changed_cookbooks.empty?
 
 IO.popen('git fetch origin') { |_f| true }
-branch = IO.popen('git symbolic-ref --short HEAD', &:read).chomp
 changed_cookbooks.each do |cb_data|
   cookbook = cb_data[0]
   type = cb_data[1]
 
   if type == 'rb'
-    old_metadata = MetadataReader.new(file_from_git_history(branch, "#{cookbook}/metadata.rb"), "#{cookbook}/metadata.rb") # rubocop:disable Metrics/LineLength
+    old_metadata = MetadataReader.new(file_from_git_history("#{cookbook}/metadata.rb"), "#{cookbook}/metadata.rb") # rubocop:disable Metrics/LineLength
     new_metadata = MetadataReader.new(IO.read("#{cookbook}/metadata.rb"), "#{cookbook}/metadata.rb")
   else
-    old_metadata = JSON.parse(file_from_git_history(branch, "#{cookbook}/metadata.json")) rescue {} # rubocop:disable Style/RescueModifier, Metrics/LineLength
+    old_metadata = JSON.parse(file_from_git_history("#{cookbook}/metadata.json")) rescue {} # rubocop:disable Style/RescueModifier, Metrics/LineLength
     new_metadata = JSON.parse(IO.read("#{cookbook}/metadata.json"))
   end
 
