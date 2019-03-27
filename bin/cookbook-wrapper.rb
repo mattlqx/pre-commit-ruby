@@ -107,6 +107,8 @@ changed_cookbooks.each do |cb_data|
 
   if old_metadata.empty?
     puts "#{cookbook} does not have a metadata file in git history. Skipping."
+  elsif !old_metadata.data.key?(:version)
+    puts "#{cookbook} did not previously have a version. Skipping."
   elsif new_metadata['version'] == old_metadata['version']
     puts "#{cookbook} has changed and has not been version bumped."
     success = false
