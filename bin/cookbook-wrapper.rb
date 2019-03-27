@@ -35,7 +35,7 @@ end
 def higher?(old_version, new_version)
   old_version = old_version.split('.')
   new_version.split('.').each_with_index do |n, idx|
-    break true if n > old_version[idx]
+    break true if n.to_i > old_version[idx].to_i
   end == true
 end
 
