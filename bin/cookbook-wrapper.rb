@@ -85,7 +85,7 @@ autofix = false
 changed_cookbooks = []
 ARGV.each do |file|
   cookbook, type = metadata_walk(file)
-  next if changed_cookbooks.map(&:first).include?(cookbook)
+  next if cookbook == false || changed_cookbooks.map(&:first).include?(cookbook)
 
   changed_cookbooks << [cookbook, type] if bump_required?(file)
 end
