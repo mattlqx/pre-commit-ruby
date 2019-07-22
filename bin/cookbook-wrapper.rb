@@ -81,7 +81,6 @@ end
 
 # Check each changed file for a metadata file in its heirarchy
 success = true
-autofix = false
 changed_cookbooks = []
 ARGV.each do |file|
   cookbook, type = metadata_walk(file)
@@ -94,6 +93,9 @@ exit(success) if changed_cookbooks.empty?
 
 IO.popen('git fetch origin') { |_f| true }
 changed_cookbooks.each do |cb_data|
+  success = true
+  autofix = false
+
   cookbook = cb_data[0]
   type = cb_data[1]
 
