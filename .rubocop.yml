@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.5
 
 Metrics/LineLength:
   Severity: refactor
@@ -20,7 +20,7 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Enabled: false
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: false
 
 Naming/HeredocDelimiterNaming:
@@ -29,7 +29,7 @@ Naming/HeredocDelimiterNaming:
 Style/DateTime:
   Enabled: false
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 
 Layout/ClosingHeredocIndentation:
