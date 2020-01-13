@@ -3,34 +3,7 @@
 
 require 'fileutils'
 require 'json'
-
-def metadata_walk(path)
-  dir = File.directory?(path) ? path : File.dirname(path)
-  if File.exist?(File.join(dir, 'metadata.rb')) || File.exist?(File.join(dir, 'metadata.json'))
-    [dir, File.exist?(File.join(dir, 'metadata.json')) ? 'json' : 'rb']
-  elsif ['.', '/'].include?(dir)
-    false
-  else
-    metadata_walk(File.dirname(dir))
-  end
-end
-
-def bump_required?(file)
-  %w[
-    metadata.(rb|json)
-    Berksfile
-    Berksfile.lock
-    Policyfile.rb
-    Policyfile.lock.json
-    recipes/.*
-    attributes/.*
-    libraries/.*
-    files/.*
-    templates/.*
-  ].each do |regex|
-    break true if file.match?("#{regex}$")
-  end == true
-end
+require_relative 'common'
 
 def higher?(old_version, new_version)
   old_version = old_version.split('.')
@@ -63,7 +36,7 @@ class MetadataReader
     @data.empty?
   end
 
-  def method_missing(sym, *args, &_block) # rubocop:disable Metrics/AbcSize, Style/MethodMissingSuper, Style/MissingRespondToMissing, Metrics/LineLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def method_missing(sym, *args, &_block) # rubocop:disable Metrics/AbcSize, Style/MethodMissingSuper, Style/MissingRespondToMissing, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return @data[sym] if args.empty?
 
     if args.length > 1
@@ -81,14 +54,6 @@ end
 
 # Check each changed file for a metadata file in its heirarchy
 success = true
-changed_cookbooks = []
-ARGV.each do |file|
-  cookbook, type = metadata_walk(file)
-  next if cookbook == false || changed_cookbooks.map(&:first).include?(cookbook)
-
-  changed_cookbooks << [cookbook, type] if bump_required?(file)
-end
-
 exit(success) if changed_cookbooks.empty?
 
 IO.popen('git fetch origin') { |_f| true }
@@ -100,10 +65,10 @@ changed_cookbooks.each do |cb_data|
   type = cb_data[1]
 
   if type == 'rb'
-    old_metadata = MetadataReader.new(file_from_git_history("#{cookbook}/metadata.rb"), "#{cookbook}/metadata.rb") # rubocop:disable Metrics/LineLength
+    old_metadata = MetadataReader.new(file_from_git_history("#{cookbook}/metadata.rb"), "#{cookbook}/metadata.rb")
     new_metadata = MetadataReader.new(IO.read("#{cookbook}/metadata.rb"), "#{cookbook}/metadata.rb")
   else
-    old_metadata = JSON.parse(file_from_git_history("#{cookbook}/metadata.json")) rescue {} # rubocop:disable Style/RescueModifier, Metrics/LineLength
+    old_metadata = JSON.parse(file_from_git_history("#{cookbook}/metadata.json")) rescue {} # rubocop:disable Style/RescueModifier
     new_metadata = JSON.parse(IO.read("#{cookbook}/metadata.json"))
   end
 

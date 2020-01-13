@@ -28,6 +28,14 @@
     )$
   exclude: .*/test/.*\.rb$
   verbose: true
+- id: cookstyle
+  name: Enforce Chef style guide with cookstyle
+  description: Enforce Chef style guide with cookstyle
+  entry: bin/cookstyle-wrapper.rb
+  language: script
+  pass_filenames: true
+  types: ['file']
+  verbose: true
 - id: chef-cookbook-version
   name: Ensure Chef cookbook version bump
   description: Ensure Chef cookbook versions are bumped when contents are changed
