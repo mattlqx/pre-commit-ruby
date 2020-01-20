@@ -28,9 +28,10 @@ def bump_required?(file)
   end == true
 end
 
-def changed_cookbooks(bump_check: true)
+def changed_cookbooks(paths = nil, bump_check: true)
   changed_cookbooks = []
-  ARGV.each do |file|
+  paths ||= ARGV
+  paths.each do |file|
     cookbook, type = metadata_walk(file)
     next if cookbook == false || changed_cookbooks.map(&:first).include?(cookbook) || file.include?('/test/')
 

@@ -15,7 +15,7 @@ To check Chef cookbook version bumps, use the `chef-cookbook-version` hook. Each
 To unit test Ruby changes in your repo, use the `rspec` hook. Each path in your repo with a `spec` directory should have a `Gemfile` that includes your desired version of rspec (or a derivative library). It will be installed via Bundler prior to testing. Rspec will only be run against the closest directory in a changed file's path with a spec dir.
 
     - repo: https://github.com/mattlqx/pre-commit-ruby
-      rev: v1.3.0
+      rev: v1.3.1
       hooks:
       - id: rubocop
       - id: foodcritic

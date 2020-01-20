@@ -34,8 +34,9 @@
   entry: bin/cookstyle-wrapper.rb
   language: script
   pass_filenames: true
-  types: ['file']
+  types: ['ruby']
   verbose: true
+  require_serial: true
 - id: chef-cookbook-version
   name: Ensure Chef cookbook version bump
   description: Ensure Chef cookbook versions are bumped when contents are changed
