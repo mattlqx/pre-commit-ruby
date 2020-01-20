@@ -15,7 +15,7 @@ end
 
 # Exit early if there are no paths to lint
 success = true
-exit(success) if changed_cookbooks(bump_check: false).empty?
+exit(success) if changed_cookbooks(bump_check: false).compact.empty?
 
 # Install cookstyle and drop args that are paths
 system('bundle install >/dev/null') || exit(false)
