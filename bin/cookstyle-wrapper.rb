@@ -19,4 +19,4 @@ exit(success) if changed_cookbooks(bump_check: false).compact.empty?
 
 # Install cookstyle and drop args that are paths
 system('bundle install >/dev/null') || exit(false)
-system("bundle exec cookstyle --color #{fix} #{changed_cookbooks.map(&:first).join(' ')}") || exit(false)
+system("bundle exec cookstyle --color #{fix} #{changed_cookbooks(bump_check: false).map(&:first).join(' ')}")

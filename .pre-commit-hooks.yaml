@@ -5,7 +5,6 @@
   language: script
   pass_filenames: true
   types: ['ruby']
-  verbose: true
 - id: rspec
   name: Unit test Ruby code with rspec
   description: Run rspec in changed paths with spec directories
@@ -13,7 +12,6 @@
   language: script
   pass_filenames: true
   types: ['ruby']
-  verbose: true
 - id: foodcritic
   name: Enforce Chef style guide with foodcritic
   description: Enforce Chef style guide with foodcritic
@@ -27,7 +25,6 @@
         .*/metadata\.rb
     )$
   exclude: .*/test/.*\.rb$
-  verbose: true
 - id: cookstyle
   name: Enforce Chef style guide with cookstyle
   description: Enforce Chef style guide with cookstyle
@@ -35,7 +32,6 @@
   language: script
   pass_filenames: true
   types: ['ruby']
-  verbose: true
   require_serial: true
 - id: chef-cookbook-version
   name: Ensure Chef cookbook version bump
@@ -44,4 +40,3 @@
   language: script
   pass_filenames: true
   types: ['file']
-  verbose: true
