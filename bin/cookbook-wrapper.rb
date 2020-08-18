@@ -14,7 +14,7 @@ end
 
 def file_from_git_history(path)
   prefix = path.start_with?('/') ? '' : './'
-  IO.popen("git show origin/master:#{prefix}#{path}", err: :close, &:read)
+  IO.popen("git show origin:#{prefix}#{path}", err: :close, &:read)
 end
 
 # Simple metadata.rb reader
