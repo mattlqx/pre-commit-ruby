@@ -28,7 +28,7 @@ def bump_required?(file)
   end == true
 end
 
-def changed_cookbooks(paths = nil, bump_check: true)
+def changed_cookbooks(paths = nil, bump_check: true) # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   changed_cookbooks = []
   paths ||= ARGV
   paths.each do |file|

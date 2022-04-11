@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require 'English'
 require_relative 'common'
 
 # Check each changed file for a spec directory in its heirarchy
@@ -20,4 +21,4 @@ exit(success) if changed_cookbooks(bump_check: false).compact.empty?
 # Install cookstyle and drop args that are paths
 system('bundle install >/dev/null') || exit(false)
 system("bundle exec cookstyle --color #{fix} #{changed_cookbooks(bump_check: false).map(&:first).join(' ')}")
-exit($?.exitstatus)
+exit($CHILD_STATUS.exitstatus)

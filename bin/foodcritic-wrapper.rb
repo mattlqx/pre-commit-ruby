@@ -18,6 +18,7 @@ end
 test_dirs = []
 ARGV.each do |file|
   next unless File.exist?(file)
+
   test_dir = spec_walk(file)
   test_dirs << test_dir if test_dir
 end

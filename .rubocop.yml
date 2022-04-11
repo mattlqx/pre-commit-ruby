@@ -41,3 +41,6 @@ Metrics/AbcSize:
                  branches, and conditions.
   Reference: 'http://c2.com/cgi/wiki?AbcMetric'
   Enabled: true
+
+AllCops:
+  NewCops: enable

@@ -19,8 +19,7 @@ end
 
 # Simple metadata.rb reader
 class MetadataReader
-  attr_reader :data
-  attr_reader :raw
+  attr_reader :data, :raw
 
   def initialize(metadata, path)
     @data = {}
@@ -36,7 +35,7 @@ class MetadataReader
     @data.empty?
   end
 
-  def method_missing(sym, *args, &_block) # rubocop:disable Metrics/AbcSize, Style/MethodMissingSuper, Style/MissingRespondToMissing, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def method_missing(sym, *args, &_block) # rubocop:disable Metrics/AbcSize, Style/MissingRespondToMissing, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     return @data[sym] if args.empty?
 
     if args.length > 1
@@ -66,10 +65,10 @@ changed_cookbooks.each do |cb_data|
 
   if type == 'rb'
     old_metadata = MetadataReader.new(file_from_git_history("#{cookbook}/metadata.rb"), "#{cookbook}/metadata.rb")
-    new_metadata = MetadataReader.new(IO.read("#{cookbook}/metadata.rb"), "#{cookbook}/metadata.rb")
+    new_metadata = MetadataReader.new(File.read("#{cookbook}/metadata.rb"), "#{cookbook}/metadata.rb")
   else
     old_metadata = JSON.parse(file_from_git_history("#{cookbook}/metadata.json")) rescue {} # rubocop:disable Style/RescueModifier
-    new_metadata = JSON.parse(IO.read("#{cookbook}/metadata.json"))
+    new_metadata = JSON.parse(File.read("#{cookbook}/metadata.json"))
   end
 
   if old_metadata.empty?
@@ -95,10 +94,10 @@ changed_cookbooks.each do |cb_data|
     new_metadata_content = new_metadata.raw.sub(
       /^(\s+)*version(\s+)(['"])[0-9.]+['"](.*)$/, "\\1version\\2\\3#{bumped_version}\\3\\4"
     )
-    IO.write("#{cookbook}/metadata.rb", new_metadata_content)
+    File.write("#{cookbook}/metadata.rb", new_metadata_content)
   else
     new_metadata['version'] = bumped_version
-    IO.write("#{cookbook}/metadata.json", JSON.dump(new_metadata))
+    File.write("#{cookbook}/metadata.json", JSON.dump(new_metadata))
   end
 end
 
