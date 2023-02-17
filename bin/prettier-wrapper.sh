@@ -17,5 +17,7 @@ if [ -z "$diff" ]
 then
   echo "No matching files - skipping step."
 else
-  yarn --cwd "components/manage" prettier --check "$diff"
+  for PRETTIER_DIR in $(find . -name package.json |grep -v node_modules) ; do
+    yarn --cwd "${PRETTIER_DIR}" prettier --check "$diff"
+  done
 fi
