@@ -11,7 +11,7 @@ then
   exit 0
 fi
 
-diff=$(script/ci/list_changed_files --diff-filter=ACMRXB | grep "components/manage/" | sed 's:^components/manage/::' | xargs)
+diff=$(bin/list_changed_files.sh --diff-filter=ACMRXB | grep "components/manage/" | sed 's:^components/manage/::' | xargs)
 
 if [ -z "$diff" ]
 then
